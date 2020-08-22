@@ -10,9 +10,10 @@
 
 <body>
     <header>
-
-        <input name="column_input " id="column_input" />
-        <button id="column_input_btn">ADD</button>
+        <form action="" onsubmit="return false" id="column_add">
+            <input name="column_input" id="column_input" />
+            <button id="column_input_btn" type="submit">ADD</button>
+        </form>
     </header>
     <div class="container ">
         <div class="column ">
@@ -37,18 +38,22 @@
                     <div class="text ">뷰 중급 9시간</div> <span>x</span></div>
             </div>
             <div class="row-add ">
-                <input type="text " name="row-add" id="rowAdd"> <button>add</button>
+                <form action="" onsubmit="return false" class="row_add">
+                    <input type="text " name="row-add" id="rowAdd"> <button type="submit">add</button>
+                </form>
+
             </div>
         </div>
 
     </div>
     <script>
         //1. column add start
-        const column_add = document.querySelector('#column_input_btn')
+        const column_add = document.querySelector('#column_add')
 
-        column_add.addEventListener("click", () => {
+        column_add.addEventListener("submit", () => {
 
                 const column_input = document.querySelector('#column_input').value;
+                document.querySelector('#column_input').value = ""
                 console.log(column_input)
                 const new_column = document.createElement("div")
                 new_column.classList.add("column")
@@ -69,18 +74,20 @@
             //1. column add end
             //2. row add start
         const add_row = (node) => {
-            console.log(node.previousElementSibling.value);
+            console.log(node)
+            console.log(node.childNodes[1].value);
             const row = document.createElement('div')
             row.classList.add('row')
                 //
-            row.innerHTML = ` <div class="text ">` + node.previousElementSibling.value + `</div> <span  onclick=" deleteNode(this)">x</span></div>`
+            row.innerHTML = ` <div class="text ">` + node.childNodes[1].value + `</div> <span  onclick=" deleteNode(this)">x</span></div>`
 
             node.parentNode.previousElementSibling.appendChild(row)
+            node.childNodes[1].value = ""
 
         }
-        document.querySelectorAll('.row-add button').forEach(
+        document.querySelectorAll('.row_add').forEach(
                 (node) => {
-                    node.addEventListener("click", () => {
+                    node.addEventListener("submit", () => {
                         add_row(node)
                     })
 
