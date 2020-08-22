@@ -35,39 +35,78 @@
                     <div class="text ">앱개발하기</div> <span>x</span></div>
                 <div class="row ">
                     <div class="text ">뷰 중급 9시간</div> <span>x</span></div>
-                <div class="row-add ">
-                    <input type="text " name="row-add " id="rowAdd "> <button>add</button>
-                </div>
+            </div>
+            <div class="row-add ">
+                <input type="text " name="row-add" id="rowAdd"> <button>add</button>
             </div>
         </div>
 
     </div>
     <script>
+        //1. column add start
         const column_add = document.querySelector('#column_input_btn')
 
         column_add.addEventListener("click", () => {
 
-            const column_input = document.querySelector('#column_input').value;
-            console.log(column_input)
-            const new_column = document.createElement("div")
-            new_column.classList.add("column")
+                const column_input = document.querySelector('#column_input').value;
+                console.log(column_input)
+                const new_column = document.createElement("div")
+                new_column.classList.add("column")
 
-            new_column.innerHTML = `  <div class="column-name ">
+                new_column.innerHTML = `  <div class="column-name ">
 
                 <div class="text ">` + column_input + `</div>
-                <span>x</span></div>
-
+                <span  onclick=" deleteNode(this)">x</span></div>
               <div class="column-contents ">
-               
-                <div class="row-add ">
-                    <input type="text " name="row-add " id="rowAdd "> <button>add</button>
-                </div>
-            </div>`
-            document.querySelector('.container').appendChild(new_column)
+            </div> <div class="row-add">
+                    <input type="text " name="row-add " id="rowAdd "> <button onclick="add_row(this)" >add</button>
+                </div>`
+                document.querySelector('.container').appendChild(new_column)
 
 
-        })
-    </script> /
+
+            })
+            //1. column add end
+            //2. row add start
+        const add_row = (node) => {
+            console.log(node.previousElementSibling.value);
+            const row = document.createElement('div')
+            row.classList.add('row')
+                //
+            row.innerHTML = ` <div class="text ">` + node.previousElementSibling.value + `</div> <span  onclick=" deleteNode(this)">x</span></div>`
+
+            node.parentNode.previousElementSibling.appendChild(row)
+
+        }
+        document.querySelectorAll('.row-add button').forEach(
+                (node) => {
+                    node.addEventListener("click", () => {
+                        add_row(node)
+                    })
+
+                })
+            //2. row add end
+            //3.delete example start
+        const deleteNode = (node) => {
+            const to_be_deleted = node.parentNode;
+            console.log(to_be_deleted.parentNode.classList)
+            if (to_be_deleted.classList.contains("column-name")) {
+                to_be_deleted.parentNode.parentNode.removeChild(to_be_deleted.parentNode)
+            } else {
+                to_be_deleted.parentNode.removeChild(to_be_deleted)
+            }
+
+        }
+        document.querySelectorAll('span').forEach(
+            (node) => {
+                node.addEventListener("click", () => {
+                    deleteNode(node)
+                })
+
+            })
+
+        //3.delete example end
+    </script>
 </body>
 
 </html>
