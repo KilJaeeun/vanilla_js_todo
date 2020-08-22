@@ -40,10 +40,13 @@ header button {
 }
 
 .container {
+    flex-wrap: wrap;
     display: flex;
-    margin: 30px auto;
+    box-sizing: border-box;
+    padding: 50px;
     align-items: flex-start;
     justify-content: flex-start;
+    width: 100%;
 }
 
 .column {
