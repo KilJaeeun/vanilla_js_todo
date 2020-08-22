@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="index.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <header>
+
+        <input name="column_input " id="column_input" />
+        <button id="column_input_btn">ADD</button>
+    </header>
+    <div class="container ">
+        <div class="column ">
+
+            <div class="column-name ">
+
+                <div class="text ">test row</div>
+                <span>x</span></div>
+
+            <div class="column-contents ">
+                <div class="row ">
+                    <div class="text "> 안드로이드 후기</div> <span>x</span></div>
+                <div class="row ">
+                    <div class="text ">강의 준비끝내기</div> <span>x</span></div>
+                <div class="row ">
+                    <div class="text ">정처기 취소하기</div> <span>x</span></div>
+                <div class="row ">
+                    <div class="text ">머신러닝 공부하기</div> <span>x</span></div>
+                <div class="row ">
+                    <div class="text ">앱개발하기</div> <span>x</span></div>
+                <div class="row ">
+                    <div class="text ">뷰 중급 9시간</div> <span>x</span></div>
+                <div class="row-add ">
+                    <input type="text " name="row-add " id="rowAdd "> <button>add</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script>
+        const column_add = document.querySelector('#column_input_btn')
+
+        column_add.addEventListener("click", () => {
+
+            const column_input = document.querySelector('#column_input').value;
+            console.log(column_input)
+            const new_column = document.createElement("div")
+            new_column.classList.add("column")
+
+            new_column.innerHTML = `  <div class="column-name ">
+
+                <div class="text ">` + column_input + `</div>
+                <span>x</span></div>
+
+              <div class="column-contents ">
+               
+                <div class="row-add ">
+                    <input type="text " name="row-add " id="rowAdd "> <button>add</button>
+                </div>
+            </div>`
+            document.querySelector('.container').appendChild(new_column)
+
+
+        })
+    </script> /
+</body>
+
+</html>
+
+</html>
