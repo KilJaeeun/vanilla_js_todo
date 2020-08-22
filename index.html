@@ -16,49 +16,18 @@
         </form>
     </header>
     <div class="container ">
-        <div class="column ">
 
-            <div class="column-name ">
 
-                <div class="text ">test row</div>
-                <span>x</span></div>
-
-            <div class="column-contents ">
-                <div class="row ">
-                    <div class="text "> 안드로이드 후기</div> <span>x</span></div>
-                <div class="row ">
-                    <div class="text ">강의 준비끝내기</div> <span>x</span></div>
-                <div class="row ">
-                    <div class="text ">정처기 취소하기</div> <span>x</span></div>
-                <div class="row ">
-                    <div class="text ">머신러닝 공부하기</div> <span>x</span></div>
-                <div class="row ">
-                    <div class="text ">앱개발하기</div> <span>x</span></div>
-                <div class="row ">
-                    <div class="text ">뷰 중급 9시간</div> <span>x</span></div>
-            </div>
-            <div class="row-add ">
-                <form action="" onsubmit="return false" class="row_add">
-                    <input type="text " name="row-add" id="rowAdd"> <button type="submit">add</button>
-                </form>
-
-            </div>
-        </div>
+    </div>
 
     </div>
     <script>
         //1. column add start
-        const column_add = document.querySelector('#column_add')
+        const create_column = (column_input) => {
+            const new_column = document.createElement("div")
+            new_column.classList.add("column")
 
-        column_add.addEventListener("submit", () => {
-
-                const column_input = document.querySelector('#column_input').value;
-                console.log(column_input)
-                if (document.querySelector('#column_input').value) {
-                    const new_column = document.createElement("div")
-                    new_column.classList.add("column")
-
-                    new_column.innerHTML = `  <div class="column-name ">
+            new_column.innerHTML = `  <div class="column-name ">
 
                 <div class="text ">` + column_input + `</div>
                 <span  onclick=" deleteNode(this)">x</span></div>
@@ -69,17 +38,28 @@
                 </form>
 
                 </div>`
-                    document.querySelector('.container').appendChild(new_column)
-                }
-                document.querySelector('#column_input').value = ""
+            document.querySelector('.container').appendChild(new_column)
+            return new_column
+            setLocalDatabase()
+        }
 
+        const column_add = document.querySelector('#column_add')
+
+        column_add.addEventListener("submit", () => {
+
+                const column_input = document.querySelector('#column_input').value;
+                //  console.log(column_input)
+                if (document.querySelector('#column_input').value) {
+                    create_column(column_input)
+                    document.querySelector('#column_input').value = ""
+                }
 
             })
             //1. column add end
             //2. row add start
         const add_row = (node) => {
-            console.log(node)
-            console.log(node.childNodes[1].value);
+            // console.log(node)
+            // console.log(node.childNodes[1].value);
             if (node.childNodes[1].value) {
                 const row = document.createElement('div')
                 row.classList.add('row')
@@ -90,6 +70,7 @@
                 node.childNodes[1].value = ""
 
             }
+            setLocalDatabase()
         }
 
 
@@ -98,6 +79,7 @@
                 (node) => {
                     node.addEventListener("submit", () => {
                         add_row(node)
+
                     })
 
                 })
@@ -105,23 +87,63 @@
             //3.delete example start
         const deleteNode = (node) => {
             const to_be_deleted = node.parentNode;
-            console.log(to_be_deleted.parentNode.classList)
+            //       console.log(to_be_deleted.parentNode.classList)
             if (to_be_deleted.classList.contains("column-name")) {
                 to_be_deleted.parentNode.parentNode.removeChild(to_be_deleted.parentNode)
             } else {
                 to_be_deleted.parentNode.removeChild(to_be_deleted)
             }
+            setLocalDatabase()
 
         }
         document.querySelectorAll('span').forEach(
             (node) => {
                 node.addEventListener("click", () => {
                     deleteNode(node)
+
                 })
 
             })
 
         //3.delete example end
+        // 4. localStorage 저장 start
+        function setLocalDatabase() {
+            const columns = document.querySelectorAll('.column')
+            const db = {};
+            for (column of columns) {
+                const column_name = column.querySelector('.column-name .text').innerText
+                const rows = column.querySelectorAll('.row .text');
+                db[column_name] = []
+                for (row of rows) {
+                    // console.log(row.innerText)
+                    db[column_name].push(row.innerText)
+                }
+            }
+            console.log(db)
+            localStorage.setItem("db", JSON.stringify(db))
+        }
+        // 4. localStorage 저장 end
+        // 5. 새로고침시, localStorage 불러오기 start
+
+        const onload = function() {
+
+            const loadedToDos = localStorage.getItem("db")
+            if (loadedToDos) {
+                const parsedToDos = JSON.parse(loadedToDos)
+
+                for (let column_input in parsedToDos) {
+                    const new_column = create_column(column_input)
+                    for (row of parsedToDos[column_input]) {
+                        const new_row = document.createElement('div')
+                        new_row.classList.add('row')
+                        new_row.innerHTML = ` <div class="text ">` + row + `</div> <span  onclick=" deleteNode(this)">x</span></div>`
+                        new_column.querySelector('.column-contents').appendChild(new_row)
+                    }
+                }
+            }
+        }
+        onload()
+            // 5. 새로고침시, localStorage 불러오기 end
     </script>
 </body>
 
