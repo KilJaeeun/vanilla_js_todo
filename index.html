@@ -15,15 +15,13 @@
             <button id="column_input_btn" type="submit">ADD</button>
         </form>
     </header>
-    <div class="container ">
-
-
+    <div class="container">
     </div>
 
     </div>
     <script>
         //1. column add start
-        const create_column = (column_input) => {
+        const createColumn = (column_input) => {
             const new_column = document.createElement("div")
             new_column.classList.add("column")
 
@@ -33,7 +31,7 @@
                 <span  onclick=" deleteNode(this)">x</span></div>
               <div class="column_contents ">
             </div> <div class="row_add_container">
-                 <form action="" onsubmit="return false" onclick="add_row(this)" class="row_add">
+                 <form action="" onsubmit="return false" onclick="addRow(this)" class="row_add">
                     <input type="text " name="row_add" id="row_add_input"> <button type="submit">add</button>
                 </form>
                 </div>`
@@ -49,14 +47,14 @@
                 const column_input = document.querySelector('#column_input').value;
                 //  console.log(column_input)
                 if (document.querySelector('#column_input').value) {
-                    create_column(column_input)
+                    createColumn(column_input)
                     document.querySelector('#column_input').value = ""
                 }
 
             })
             //1. column add end
             //2. row add start
-        const add_row = (node) => {
+        const addRow = (node) => {
             // console.log(node)
             // console.log(node.childNodes[1].value);
             if (node.childNodes[1].value) {
@@ -77,7 +75,7 @@
         document.querySelectorAll('.row_add').forEach(
                 (node) => {
                     node.addEventListener("submit", () => {
-                        add_row(node)
+                        addRow(node)
 
                     })
 
@@ -93,7 +91,6 @@
                 to_be_deleted.parentNode.removeChild(to_be_deleted)
             }
             setLocalDatabase()
-
         }
         document.querySelectorAll('span').forEach(
             (node) => {
@@ -125,13 +122,11 @@
         // 5. 새로고침시, localStorage 불러오기 start
 
         const onload = function() {
-
             const loadedToDos = localStorage.getItem("db")
             if (loadedToDos) {
                 const parsedToDos = JSON.parse(loadedToDos)
-
                 for (let column_input in parsedToDos) {
-                    const new_column = create_column(column_input)
+                    const new_column = createColumn(column_input)
                     for (row of parsedToDos[column_input]) {
                         const new_row = document.createElement('div')
                         new_row.classList.add('row')
