@@ -27,16 +27,15 @@
             const new_column = document.createElement("div")
             new_column.classList.add("column")
 
-            new_column.innerHTML = `  <div class="column-name ">
+            new_column.innerHTML = `  <div class="column_name ">
 
                 <div class="text ">` + column_input + `</div>
                 <span  onclick=" deleteNode(this)">x</span></div>
-              <div class="column-contents ">
-            </div> <div class="row-add">
+              <div class="column_contents ">
+            </div> <div class="row_add_container">
                  <form action="" onsubmit="return false" onclick="add_row(this)" class="row_add">
-                    <input type="text " name="row-add" id="rowAdd"> <button type="submit">add</button>
+                    <input type="text " name="row_add" id="row_add_input"> <button type="submit">add</button>
                 </form>
-
                 </div>`
             document.querySelector('.container').appendChild(new_column)
             return new_column
@@ -88,7 +87,7 @@
         const deleteNode = (node) => {
             const to_be_deleted = node.parentNode;
             //       console.log(to_be_deleted.parentNode.classList)
-            if (to_be_deleted.classList.contains("column-name")) {
+            if (to_be_deleted.classList.contains("column_name")) {
                 to_be_deleted.parentNode.parentNode.removeChild(to_be_deleted.parentNode)
             } else {
                 to_be_deleted.parentNode.removeChild(to_be_deleted)
@@ -111,7 +110,7 @@
             const columns = document.querySelectorAll('.column')
             const db = {};
             for (column of columns) {
-                const column_name = column.querySelector('.column-name .text').innerText
+                const column_name = column.querySelector('.column_name .text').innerText
                 const rows = column.querySelectorAll('.row .text');
                 db[column_name] = []
                 for (row of rows) {
@@ -136,8 +135,8 @@
                     for (row of parsedToDos[column_input]) {
                         const new_row = document.createElement('div')
                         new_row.classList.add('row')
-                        new_row.innerHTML = ` <div class="text ">` + row + `</div> <span  onclick=" deleteNode(this)">x</span></div>`
-                        new_column.querySelector('.column-contents').appendChild(new_row)
+                        new_row.innerHTML = ` <div class="text">` + row + `</div> <span  onclick=" deleteNode(this)">x</span></div>`
+                        new_column.querySelector('.column_contents').appendChild(new_row)
                     }
                 }
             }

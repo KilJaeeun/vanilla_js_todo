@@ -57,7 +57,7 @@ header button {
     background-color: rgba(247, 242, 242, 0.863);
 }
 
-.column-name {
+.column_name {
     height: 60px;
     font-size: 25px;
     padding: 10px 20px;
@@ -80,20 +80,20 @@ span {
     cursor: pointer;
 }
 
-.row-add {
+.row_add_container {
     padding: 30px 20px;
 }
 
-.row-add * {
+.row_add_container * {
     height: 36px;
     box-sizing: border-box;
 }
 
-.row-add input {
+.row_add_container input {
     width: 230px;
 }
 
-.row-add button {
+.row_add_container button {
     width: 60px;
     cursor: pointer;
 }

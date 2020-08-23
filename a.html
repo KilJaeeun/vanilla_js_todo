@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title>Document</title>
+</head>
+
+
+<header>
+    <form action="" onsubmit="return false" id="column_add">
+        <input name="column_input" id="column_input" />
+        <button id="column_input_btn" type="submit">ADD</button>
+    </form>
+</header>
+<div class="container">
+    <div class="column">
+        <div class="column-name ">
+            <div class="text ">안녕</div>
+            <span>x</span>
+        </div>
+        <div class="column-contents ">
+            <div class="row">
+                <div class="text ">1</div> <span>x</span></div>
+            <div class="row">
+                <div class="text ">2</div> <span>x</span></div>
+            <div class="row">
+                <div class="text ">3</div> <span>x</span></div>
+        </div>
+        <div class="row-add">
+            <form action="" onsubmit="return false" class="row_add">
+                <input type="text " name="row-add" id="rowAdd"> <button type="submit">add</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    // 1. create column start
+    const create_column = () => {
+        const new_column = document.createElement('div')
+        new_column.classList.add("column") //
+        const column_name = document.querySelector("#column_input").value;
+        console.log(column_name)
+        new_column.innerHTML = `    <div class="column-name ">
+            <div class="text ">` + column_name + `</div>
+            <span>x</span>
+        </div>
+        <div class="column-contents ">
+        </div>
+        <div class="row-add">
+            <form action="" onsubmit="return false" class="row_add">
+                <input type="text " name="row-add" id="rowAdd"> <button type="submit">add</button>
+            </form>
+        </div>`
+        const container = document.querySelector('.container')
+        container.appendChild(new_column)
+    }
+    const column_add = document.querySelector("#column_add");
+    column_add.addEventListener("submit", create_column)
+        // 1. create column end
+
+    // 2. create row start
+
+    // 2. create row end
+</script>
+
+</body>
+
+</html>
